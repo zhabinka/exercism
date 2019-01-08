@@ -1,15 +1,8 @@
 const encode = (str) => {
-  const iter = (s, arr) => {
-    if (s.length === 0) {
-      return arr;
-    }
-    const regex = new RegExp(`${s[0]}+`);
-    const charsGroup = s.match(regex)[0];
-
-    return iter(s.substr(charsGroup.length), arr.concat(charsGroup));
-  };
-
-  const groups = iter(str, []);
+  if (str === '') {
+    return str;
+  }
+  const groups = str.match(/(.)\1*/g);
 
   return groups
     .map(el => (el.length === 1 ? el : `${el.length}${el[0]}`))
