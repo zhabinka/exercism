@@ -1,31 +1,28 @@
 const typesList = [
   {
-    type: 'illegal',
+    type: () => { throw new Error(); },
     check: (a, b, c) => (a <= 0 || a + b < c),
   },
   {
-    type: 'equilateral',
+    type: () => 'equilateral',
     check: (a, b, c) => (a === b && b === c),
   },
   {
-    type: 'isosceles',
+    type: () => 'isosceles',
     check: (a, b, c) => (a === b || b === c),
   },
   {
-    type: 'scalene',
+    type: () => 'scalene',
     check: (a, b, c) => (a !== b && b !== c),
   },
 ];
 
 const checker = (sides) => {
   const [a, b, c] = sides.sort((x, y) => x - y);
-  const { type } = typesList.find(el => el.check(a, b, c));
 
-  if (type === 'illegal') {
-    throw new Error();
-  }
-
-  return type;
+  return typesList
+    .find(el => el.check(a, b, c))
+    .type();
 };
 
 class Triangle {
