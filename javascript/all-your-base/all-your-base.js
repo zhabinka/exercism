@@ -1,13 +1,14 @@
-const f = v => v <= 1 || v % 1 > 0 || v === undefined;
-const ff = (arr, base) => {
+const f = (base, arr = ['empty']) => {
   switch (true) {
     case arr.length === 0:
       return true;
     case (arr.length > 1 && arr[0] === 0):
       return true;
-    case arr.find(el => el < 0) < 0:
+    case Math.min(...arr) < 0:
       return true;
-    case arr.find(el => el >= base) > 0:
+    case Math.max(...arr) >= base:
+      return true;
+    case (base <= 1 || base % 1 > 0 || base === undefined):
       return true;
     default:
       return false;
@@ -24,7 +25,7 @@ const errors = [
     message: () => { throw new Error('Wrong output base'); },
   },
   {
-    check: (numbers, inputBase) => ff(numbers, inputBase),
+    check: (numbers, inputBase) => f(inputBase, numbers),
     message: () => { throw new Error('Input has wrong format'); },
   },
   {
@@ -34,9 +35,9 @@ const errors = [
 
 const toDecimal = (numbers, base) => numbers
   .reverse()
-  .reduce((acc, el, i) => acc + (el * (base ** i)));
+  .reduce((acc, el, i) => acc + el * (base ** i));
 
-function convert(arr, inputBase, outputBase) {
+const convert = (arr, inputBase, outputBase) => {
   const { message } = errors.find(el => el.check(arr, inputBase, outputBase));
 
   if (message) {
@@ -52,6 +53,6 @@ function convert(arr, inputBase, outputBase) {
   };
 
   return iter(toDecimal(arr, inputBase));
-}
+};
 
 export { convert };
