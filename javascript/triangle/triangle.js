@@ -17,9 +17,10 @@ const typesList = [
   },
 ];
 
-
-const checker = (a, b, c) => {
+const checker = (sides) => {
+  const [a, b, c] = sides.sort((x, y) => x - y);
   const { type } = typesList.find(el => el.check(a, b, c));
+
   if (type === 'illegal') {
     throw new Error();
   }
@@ -29,13 +30,11 @@ const checker = (a, b, c) => {
 
 class Triangle {
   constructor(a, b, c) {
-    this.sides = [a, b, c].sort((x, y) => x - y);
+    this.sides = [a, b, c];
   }
 
   kind() {
-    const [a, b, c] = this.sides;
-
-    return checker(a, b, c);
+    return checker(this.sides);
   }
 }
 
