@@ -1,12 +1,22 @@
-const checker = (a, b, c) => {
-  if (a === b && a === c) {
-    return 'equilateral';
-  }
-  if (a === b || b === c) {
-    return 'isosceles';
-  }
+const typesList = [
+  {
+    type: 'equilateral',
+    check: (a, b, c) => (a === b && b === c),
+  },
+  {
+    type: 'isosceles',
+    check: (a, b, c) => (a === b || b === c),
+  },
+  {
+    type: 'scalene',
+    check: (a, b, c) => (a !== b && b !== c),
+  },
+];
 
-  return 'scalene';
+
+const checker = (a, b, c) => {
+  const { type } = typesList.find(el => el.check(a, b, c));
+  return type;
 };
 
 class Triangle {
