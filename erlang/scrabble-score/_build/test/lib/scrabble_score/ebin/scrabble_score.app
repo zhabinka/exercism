@@ -1,0 +1,7 @@
+{application,scrabble_score,
+             [{description,"exercism.org - scrabble-score"},
+              {vsn,"0.0.1"},
+              {modules,[scrabble_score]},
+              {registered,[]},
+              {applications,[kernel,stdlib]},
+              {env,[]}]}.
