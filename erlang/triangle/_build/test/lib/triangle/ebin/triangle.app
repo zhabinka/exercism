@@ -1,7 +1,0 @@
-{application,triangle,
-             [{description,"exercism.org - triangle"},
-              {vsn,"0.0.1"},
-              {modules,[triangle]},
-              {registered,[]},
-              {applications,[kernel,stdlib]},
-              {env,[]}]}.
