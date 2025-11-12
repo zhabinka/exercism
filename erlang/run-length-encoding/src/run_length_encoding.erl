@@ -3,14 +3,14 @@
 -export([decode/1, encode/1]).
 
 
-decode("") -> "";
+decode([]) -> [];
 decode([Head | Tail] = String) ->
 	case string:to_integer(String) of
 		{error, no_integer} -> [Head | decode(Tail)];
-		{Length, [Char | T]} -> lists:duplicate(Length, Char) ++ decode(T)
+		{Length, [Char | Rest]} -> lists:duplicate(Length, Char) ++ decode(Rest)
 	end.
 
-encode("") -> "";
+encode([]) -> [];
 encode(Str) ->
   {match, Groups} = re:run(Str, "(.)\\1*", [global]),
 
