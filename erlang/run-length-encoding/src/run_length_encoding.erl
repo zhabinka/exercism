@@ -11,16 +11,22 @@ decode([Head | Tail] = String) ->
 	end.
 
 encode([]) -> [];
-encode(Str) ->
-  {match, Groups} = re:run(Str, "(.)\\1*", [global]),
+encode([Head | Tail]) ->
+	case lists:splitwith(fun(Char) -> Char =:= Head end, Tail) of
+		{[], Rest} -> [Head | encode(Rest)];
+		{Duplicates, Rest} -> integer_to_list(length(Duplicates) + 1) ++ [Head | encode(Rest)]
+	end.
 
-  lists:foldl(fun ([{I, Len}, _], Acc) ->
-							Length = if
-												 Len == 1 -> [];
-												 true -> integer_to_list(Len)
-											 end,
-							Acc ++ Length ++ [lists:nth(I + 1, Str)]
-              end, [], Groups).
+% encode(Str) ->
+%   {match, Groups} = re:run(Str, "(.)\\1*", [global]),
+%
+%   lists:foldl(fun ([{I, Len}, _], Acc) ->
+% 							Length = if
+% 												 Len == 1 -> [];
+% 												 true -> integer_to_list(Len)
+% 											 end,
+% 							Acc ++ Length ++ [lists:nth(I + 1, Str)]
+%               end, [], Groups).
 
 
 % re:compile("^[a-z]$").
