@@ -1,12 +1,8 @@
-javascript/node_modules/
-javascript/package-lock.json
-
-javascript/*/README.md
-javascript/*/package.json
 *.exercism
 
-javascript/hello-world
-javascript/darts
-javascript/leap
-javascript/two-fer
-javascript/reverse-string
+javascript/node_modules/
+javascript/package-lock.json
+javascript/*/README.md
+javascript/*/package.json
+
+_build/
